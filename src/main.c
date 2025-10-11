@@ -61,9 +61,26 @@ void Run(Echo* echo) {
     }
 }
 
+void CleanUp(Echo* echo) {
+    if (echo == NULL) {
+        return;
+    }
+
+    if (echo->option != NULL) {
+        free(echo->option);
+    }
+
+    if (echo->args != NULL) {
+        free(echo->args);
+    }
+
+    free(echo);
+}
+
 int main(int argc, const char* argv[]) {
     Echo* echo = Parser(argc, argv);
     Run(echo);
 
+    CleanUp(echo);
     return 0;
 };
